@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls') ),
 
     #users urls
     path('register/', user_views.register, name="register"),
@@ -48,4 +47,5 @@ urlpatterns = [
          name='password_reset_complete'),
     # user urls end
     
+    # path('', include('store.urls') ),
 ]

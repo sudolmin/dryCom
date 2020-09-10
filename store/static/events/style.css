@@ -1,0 +1,31 @@
+.box-item{
+	margin: 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #a3a3a3;
+	padding: 12px;
+	box-shadow: 0 0 10px #9a9a9a;
+
+}
+
+.rating{
+	font-size: 2vw;
+}
+
+.rest-img{
+	width: 20vw;
+	margin: auto;
+}
+
+body{background-color: #fafafa}
+
+@media screen and (max-width: 600px) {
+	.rating{
+		font-size: 6vw;
+	}
+
+	.rest-img{
+		width: 55vw;
+		margin: auto;
+	}
+}
