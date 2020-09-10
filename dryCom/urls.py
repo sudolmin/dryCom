@@ -47,5 +47,5 @@ urlpatterns = [
          name='password_reset_complete'),
     # user urls end
     
-    # path('', include('store.urls') ),
+    path('', include('store.urls') ),
 ]

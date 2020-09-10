@@ -3,13 +3,13 @@ from .models import Categories ,Product, Product_Item, Product_Item_Images
 from django.forms import TextInput, Textarea
 from django.db import models
 
-import nested_admin
+from nested_admin import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 # Register your models here.
 
-class ImagesInline(nested_admin.NestedStackedInline):
+class ImagesInline(NestedStackedInline):
 	model=Product_Item_Images
 
-class Product_ItemInline(nested_admin.NestedTabularInline):
+class Product_ItemInline(NestedTabularInline):
 	model=Product_Item
 	formfield_overrides = {
     	models.CharField: {'widget': TextInput(attrs={'size':'20'})},
@@ -17,7 +17,7 @@ class Product_ItemInline(nested_admin.NestedTabularInline):
     }
 	inlines=[ImagesInline]
 
-class ProductAdmin(nested_admin.NestedModelAdmin):
+class ProductAdmin(NestedModelAdmin):
 	inlines=[Product_ItemInline]
 
 admin.site.register(Categories)

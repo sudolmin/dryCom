@@ -9,12 +9,15 @@ class Categories(models.Model):
 		return self.title
 
 class Product(models.Model):
-	category = models.ForeignKey(Categories, on_delete=models.CASCADE)
+	category = models.ForeignKey(Categories, 
+		on_delete=models.CASCADE, related_name='Products')
 	name=models.CharField(max_length=250)
 	origin_place = models.CharField(max_length=250)
 
 class Product_Item(models.Model):
-	Product=models.ForeignKey(Product, on_delete=models.CASCADE)
+	Product=models.ForeignKey(Product, 
+		on_delete=models.CASCADE,related_name='items')
+
 	price=models.FloatField(default = 0.00, blank=False,
 								help_text=("""Price per item"""),
                             	verbose_name=('Price'),
@@ -35,7 +38,8 @@ class Product_Item(models.Model):
                             	verbose_name=('Ingredients'),) #Richtextfield if wants to include pictures
 	
 class Product_Item_Images(models.Model):
-	item = models.ForeignKey(Product_Item, on_delete=models.CASCADE)
+	item = models.ForeignKey(Product_Item, 
+		on_delete=models.CASCADE, related_name='images')
 	image = models.ImageField(default='default-product.jpg', upload_to='ProfilePics')
 
 class Customer(models.Model):
