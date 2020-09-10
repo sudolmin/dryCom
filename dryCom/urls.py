@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('_nested_admin/', include('nested_admin.urls')),
     #users urls
     path('register/', user_views.register, name="register"),
     path('profile/', user_views.profile, name="profile"),

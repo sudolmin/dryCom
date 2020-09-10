@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'taggit',
     "rest_framework",
     'crispy_forms',
+    'nested_admin',
 ]
 
 MIDDLEWARE = [
