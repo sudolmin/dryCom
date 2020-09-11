@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>E-Com | Events</title>
+	<title>DryCom</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -10,28 +10,40 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'events/style.css' %}">
 	 <script src="{% static 'events/script.js' %}"></script> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-	  <a class="navbar-brand" href="#">Navbar</a>
+	
+	<nav class="navbar navbar-expand-md navbar-dark">
+	  <a class="navbar-brand ml-10" href="#">LOGO</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-	    <ul class="navbar-nav">
+	    <ul class="navbar-nav ml-10">
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Link</a>
+	        <a class="nav-link active" href="#">Home</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Link</a>
+	        <a class="nav-link" href="#">Shop</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Link</a>
+	        <a class="nav-link" href="#">Contact</a>
 	      </li>    
 	    </ul>
+	    <ul class="navbar-nav ml-auto "> 
+            <div class="form-inline my-2 my-lg-0">
+		     	<a href="#" class="btn rounded" style="background-color: #e3d9b5;">Login</a>
+		     	
+		     	<a href="{% url 'Cart' %}">
+	     			<i id="cart-icon" class="fa fa-shopping-bag " aria-hidden="true"></i>
+		    	</a>
+		    	<p id="cart-total">0</p>
+
+		    </div>
+        </ul> 
 	  </div>  
 	</nav>
-	<br>
 	{% block body %}
 	{% endblock %}
 </body>
