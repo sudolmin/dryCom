@@ -1,57 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
-{% block body %}
+{% block base %}
 
 <div class="top d-flex flex-wrap align-items-end justify-content-center">
-    <div><a href="#" class="shop-btn btn rounded">Shop Now</a></div>
+    <div><a href="{% url 'store' %}" class="shop-btn btn rounded">Shop Now</a></div>
 </div>
-<br>
 <div class="container">
-	<div class="row">
-		<div class="col-sm-4" style="margin-bottom: 30px">
-			<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
-			<div class="box-element product">
-				<h6><strong>Product</strong></h6>
-				<hr>
-
-				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
+	<section class="categories">
+		<h1 class="text-center mb-3">Shop By Category</h1>
+		<div class="row">
+			{% for CateObj in CateList %}
+				<div class="col-sm-4" style="margin-bottom: 30px">
+					<a style="text-decoration: none;" href="{% url 'CateID' CateObj.id %}">
+						<img class="thumbnail" src="{{ CateObj.image.url }}">
+						<div class="box-element product">
+							<h2 class="text-center"><strong>{{CateObj}}</strong></h2>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+			<div class="col-sm-4" style="margin-bottom: 40px; background-color: white; border-radius: 20px; padding: 10%">
+				<a style="text-decoration: none;" href="{% url 'category-all' %}">
+					<h2 class="text-center">Show All</h2>
+				</a>
 			</div>
 		</div>
-		<div class="col-sm-4" style="margin-bottom: 30px">
-			<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
-			<div class="box-element product">
-				<h6><strong>Product</strong></h6>
-				<hr>
-
-				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-			</div>
-		</div>
-		<div class="col-sm-4" style="margin-bottom: 30px">
-			<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
-			<div class="box-element product">
-				<h6><strong>Product</strong></h6>
-				<hr>
-
-				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-			</div>
-		</div>
-		<div class="col-sm-4" style="margin-bottom: 30px">
-			<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
-			<div class="box-element product">
-				<h6><strong>Product</strong></h6>
-				<hr>
-
-				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-			</div>
-		</div>
-	</div>
+	</section>
 </div>
 {% endblock %}

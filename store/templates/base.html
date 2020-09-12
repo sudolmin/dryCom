@@ -14,18 +14,18 @@
 </head>
 <body>
 	
-	<nav class="navbar navbar-expand-md navbar-dark">
-	  <a class="navbar-brand ml-10" href="#">LOGO</a>
+	<nav class="navbar navbar-expand-md navbar-dark sticky-top">
+	  <a class="navbar-brand " href="#">LOGO</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
 	    <ul class="navbar-nav ml-10">
 	      <li class="nav-item">
-	        <a class="nav-link active" href="#">Home</a>
+	        <a class="nav-link active" href="{% url 'home' %}">Home</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Shop</a>
+	        <a class="nav-link" href="{% url 'store' %}">Shop</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">Contact</a>
@@ -33,7 +33,7 @@
 	    </ul>
 	    <ul class="navbar-nav ml-auto "> 
             <div class="form-inline my-2 my-lg-0">
-		     	<a href="#" class="btn rounded" style="background-color: #e3d9b5;">Login</a>
+		     	<a href="{% url 'login' %}" class="btn rounded" style="background-color: #e3d9b5;">Login</a>
 		     	
 		     	<a href="{% url 'Cart' %}">
 	     			<i id="cart-icon" class="fa fa-shopping-bag " aria-hidden="true"></i>
@@ -44,7 +44,39 @@
         </ul> 
 	  </div>  
 	</nav>
-	{% block body %}
+	{% block base %}
+	
 	{% endblock %}
+
+<!-- footer -->
+	<footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <div class="soc">
+            <a href="#"><i class="fa fa-youtube fa-lg" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a>
+          </div>
+          <p>
+            <!-- <strong>LOGO</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>.
+            The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. <br> -->
+          </p>
+        </div>
+      </div>
+    </footer>
+	
+	<script type="text/javascript">
+		const currentLocation = location.href;
+		const menuItem = document.getElementsByClassName('nav-link')
+		const menuLen = menuItem.length
+		
+		for (let i=0; i<menuLen; i++){
+		
+			menuItem[i].className = "nav-link"
+			if(menuItem[i].href === currentLocation){
+				menuItem[i].className = "nav-link active custom-active"
+			}
+		}
+	</script>
 </body>
 </html>

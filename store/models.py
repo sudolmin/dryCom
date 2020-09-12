@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 class Categories(models.Model):
 	title = models.CharField(max_length=150)
+	image =image = models.ImageField(default='default-product.jpg', upload_to='Uploads')
 
 	def __str__(self):
 		return self.title
@@ -13,6 +14,9 @@ class Product(models.Model):
 		on_delete=models.CASCADE, related_name='Products')
 	name=models.CharField(max_length=250)
 	origin_place = models.CharField(max_length=250)
+
+	def __str__(self):
+		return f'{self.name}'
 
 class Product_Item(models.Model):
 	Product=models.ForeignKey(Product, 
@@ -37,10 +41,12 @@ class Product_Item(models.Model):
 	ingredient=models.TextField(blank=True, null=True,help_text=("Write the things that are included in the pakaging."),
                             	verbose_name=('Ingredients'),) #Richtextfield if wants to include pictures
 	
+	def __str__(self):
+		return f'{self.Product.name}-{self.weight}'
 class Product_Item_Images(models.Model):
 	item = models.ForeignKey(Product_Item, 
 		on_delete=models.CASCADE, related_name='images')
-	image = models.ImageField(default='default-product.jpg', upload_to='ProfilePics')
+	image = models.ImageField(default='default-product.jpg', upload_to='Uploads')
 
 class Customer(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block base %}
+<br>
+
+
+<div id="storeSidenav" class="storesidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin-top: 15vw;">Close&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+	{% block products %}
+
+	{% endblock %}
+<script type="text/javascript">
+	document.getElementById("main").addEventListener("click", closeNav);
+</script>
+
+{% endblock %}
