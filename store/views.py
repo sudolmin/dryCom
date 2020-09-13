@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Categories, Product, Product_Item, Product_Item_Images
+from .models import Categories, Product, Product_Item, Product_Item_Images,Customer, Order, OrderItem, ShippingAddress
+from django.http import JsonResponse
 # Create your views here.
 def Home(request):
 	CateList=Categories.objects.all()
@@ -51,7 +52,40 @@ def StoreProductsByCategory(request, pk):
 
 
 def Cart(request):
-	return render(request, 'cart.html')
+	pdtList=[]
+	if request.user.is_authenticated:
+		customer  = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		items = order.orderitem_set.all()
+		for item in items:
+			pdtImage=Product_Item_Images.objects.filter(item=item.product)[0]
+			pdtList += [[item, pdtImage]]
+	else:
+		pdtList=[]
+		order = {'get_cart_total':0, 'get_cart_items':0}
+	context={
+	'pdtList': pdtList,
+	'order': order,
+	}
+	return render(request, 'cart.html', context)
 
 def CheckOut(request):
-	return render(request, 'checkout.html')
+	pdtList=[]
+	if request.user.is_authenticated:
+		customer  = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		items = order.orderitem_set.all()
+		for item in items:
+			pdtImage=Product_Item_Images.objects.filter(item=item.product)[0]
+			pdtList += [[item, pdtImage]]
+	else:
+		pdtList=[]
+		order = {'get_cart_total':0, 'get_cart_items':0}
+	context={
+	'pdtList': pdtList,
+	'order': order,
+	}
+	return render(request, 'checkout.html', context)
+
+def updateItem(request):
+	return JsonResponse('Item was added.', safe=False)

@@ -12,6 +12,22 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript">
 		var user = "{{request.user}}"
+		function getToken(name) {
+	    let cookieValue = null;
+	    if (document.cookie && document.cookie !== '') {
+	        const cookies = document.cookie.split(';');
+	        for (let i = 0; i < cookies.length; i++) {
+	            const cookie = cookies[i].trim();
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
+	const csrftoken = getToken('csrftoken');
 	</script>
 </head>
 <body>
@@ -38,7 +54,7 @@
 		     	<a href="{% url 'login' %}" class="btn rounded" style="background-color: #e3d9b5;">Login</a>
 		     	
 		     	<a href="{% url 'Cart' %}">
-	     			<i id="cart-icon" class="fa fa-shopping-bag " aria-hidden="true"></i>
+	     			<i id="cart-icon" class="fa fa-shopping-bag " style="margin-left: 15px;" aria-hidden="true"></i>
 		    	</a>
 		    	<p id="cart-total">0</p>
 
@@ -49,23 +65,6 @@
 	{% block base %}
 	
 	{% endblock %}
-
-<!-- footer -->
-	<footer class="footer">
-      <div class="container">
-        <div class="content has-text-centered">
-          <div class="soc">
-            <a href="#"><i class="fa fa-youtube fa-lg" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a>
-          </div>
-          <p>
-            <!-- <strong>LOGO</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>.
-            The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. <br> -->
-          </p>
-        </div>
-      </div>
-    </footer>
 	
 	<script type="text/javascript">
 		const currentLocation = location.href;
@@ -83,4 +82,57 @@
 	<script src="{% static 'events/script.js' %}"></script> 
 
 </body>
+<!-- Footer -->
+<footer class="page-footer font-small cyan darken-3">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Grid row-->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-12 py-5">
+        <div class="mb-5 flex-center">
+
+          <!-- Facebook -->
+          <a class="fb-ic">
+            <i class="fa fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic">
+            <i class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Google +-->
+          <a class="gplus-ic">
+            <i class="fa fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Linkedin -->
+          <a class="li-ic">
+            <i class="fa fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Pinterest-->
+          <a class="pin-ic">
+            <i class="fa fa-pinterest fa-lg white-text fa-2x"> </i>
+          </a>
+        </div>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row-->
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 </html>

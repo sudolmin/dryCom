@@ -11,8 +11,8 @@
 				<br>
 				<table class="table">
 					<tr>
-						<th><h5>Items: <strong>3</strong></h5></th>
-						<th><h5>Total:<strong> $42</strong></h5></th>
+						<th><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+						<th><h5>Total:<strong><i id="cart-icon" class="fa fa-inr" aria-hidden="true"></i>{{order.get_cart_total|floatformat:2}}</strong></h5></th>
 						<th>
 							<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'CheckOut' %}">Checkout</a>
 						</th>
@@ -22,28 +22,29 @@
 
 			<br>
 			<div class="box-element">
-				<div class="cart-row">
-					<div style="flex:2"></div>
+				<div class="text-center cart-row">
+					<div style="flex:1"></div>
 					<div style="flex:2"><strong>Item</strong></div>
 					<div style="flex:1"><strong>Price</strong></div>
 					<div style="flex:1"><strong>Quantity</strong></div>
 					<div style="flex:1"><strong>Total</strong></div>
 				</div>
-				
-				<div class="cart-row">
-					<div style="flex:2"><img class="row-image" src="{% static 'images/placeholder.png' %}"></div>
-					<div style="flex:2"><p>Product 1</p></div>
-					<div style="flex:1"><p>$20</p></div>
+				{% for item, img in pdtList %}
+				<div class="text-center cart-row">
+					<div style="flex:1"><img class="row-image" src="{{img.image.url}}"></div>
+					<div style="flex:2"><p>{{item}}</p></div>
+					<div style="flex:1"><p><strong><i id="cart-icon" class="fa fa-inr" aria-hidden="true"></i>{{item.product.price|floatformat:2}}</strong></p></div>
 					<div style="flex:1">
-						<p class="quantity">2</p>
-						<div class="quantity">
+						
+						<div class="quantity text-center">
 							<i class="fa fa-angle-double-up chg-quantity"></i>
-							
+							<p class="quantity">{{item.quantity}}</p>
 							<i class="fa fa-angle-double-down chg-quantity"></i>
 						</div>
 					</div>
-					<div style="flex:1"><p>$32</p></div>
+					<div style="flex:1"><p><i id="cart-icon" class="fa fa-inr" aria-hidden="true"></i>{{item.get_total|floatformat:2}}</strong></p></div>
 				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>

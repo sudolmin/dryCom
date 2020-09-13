@@ -8,7 +8,7 @@ urlpatterns = [
 	path('store/', views.StoreAllProducts, name="store"),
 	path('store/category/all/', views.AllCategories, name="category-all"),
 	path('store/category/<str:pk>/', views.StoreProductsByCategory, name="CateID"),
-
+	path('updateItem/', views.updateItem, name="updateItem"),
 	# api urlpatterns
 	path('category-api/', api.CateView, name="cate_api_view"),
 ]
