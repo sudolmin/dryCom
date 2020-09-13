@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categories ,Product, Product_Item, Product_Item_Images
+from . import models as _
 from django.forms import TextInput, Textarea
 from django.db import models
 
@@ -7,10 +7,10 @@ from nested_admin import NestedStackedInline, NestedTabularInline, NestedModelAd
 # Register your models here.
 
 class ImagesInline(NestedStackedInline):
-	model=Product_Item_Images
+	model=_.Product_Item_Images
 
 class Product_ItemInline(NestedTabularInline):
-	model=Product_Item
+	model=_.Product_Item
 	formfield_overrides = {
     	models.CharField: {'widget': TextInput(attrs={'size':'20'})},
         models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':30})},
@@ -20,5 +20,12 @@ class Product_ItemInline(NestedTabularInline):
 class ProductAdmin(NestedModelAdmin):
 	inlines=[Product_ItemInline]
 
-admin.site.register(Categories)
-admin.site.register(Product, ProductAdmin)
+class OrderItemAdmin(admin.ModelAdmin):
+	list_display = ('product','order', 'quantity', 'date_added')
+
+admin.site.register(_.Categories)
+admin.site.register(_.Product, ProductAdmin)
+admin.site.register(_.Customer)
+admin.site.register(_.Order)
+admin.site.register(_.OrderItem, OrderItemAdmin)
+admin.site.register(_.ShippingAddress)

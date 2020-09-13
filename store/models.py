@@ -66,13 +66,17 @@ class Order(models.Model):
 	transaction_id = models.CharField(max_length=200, null=True)
 
 	def __str__(self):
-		return str(self.id)
+		return f'{self.customer.name}-{self.id}'
 
 class OrderItem(models.Model):
 	product=models.ForeignKey(Product_Item, on_delete=models.SET_NULL, null=True)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-	quantity = models.IntegerField(default=0, null=True, blank=True)
+	quantity = models.IntegerField(default=0, null=True, 
+				blank=True, validators=[ MinValueValidator(0)] )
 	date_added = models.DateTimeField(auto_now_add=True)
+
+	def  __str__(self):
+		return self.product.__str__()
 
 class ShippingAddress(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
@@ -84,4 +88,4 @@ class ShippingAddress(models.Model):
 	date_added = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return self.address
+		return self.customer.name

@@ -9,8 +9,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'events/style.css' %}">
-	 <script src="{% static 'events/script.js' %}"></script> 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript">
+		var user = "{{request.user}}"
+	</script>
 </head>
 <body>
 	
@@ -78,5 +80,7 @@
 			}
 		}
 	</script>
+	<script src="{% static 'events/script.js' %}"></script> 
+
 </body>
 </html>
