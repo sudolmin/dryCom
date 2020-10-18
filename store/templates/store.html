@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
 {% block base %}
+<link rel="stylesheet" type="text/css" href="{% static 'events/filter.css' %}">
+
 <br>
 
 
 <div id="storeSidenav" class="storesidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin-top: 15vw;">Close&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
+  <div class="slidecontainer">
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+  <p>Value: <span id="demo"></span></p>
+</div>
 </div>
 
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 	{% block products %}
 
 	{% endblock %}
+<script src="{% static 'events/filter.js' %}"></script> 
 {% endblock %}

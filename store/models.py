@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator, MaxLengthValidator
 # Create your models here.
 class Categories(models.Model):
 	title = models.CharField(max_length=150)
-	image =image = models.ImageField(default='default-product.jpg', upload_to='Uploads')
+	image = models.ImageField(default='default-product.jpg', upload_to='Uploads')
 
 	def __str__(self):
 		return self.title
@@ -22,11 +22,13 @@ class Product_Item(models.Model):
 	Product=models.ForeignKey(Product, 
 		on_delete=models.CASCADE,related_name='items')
 
-	price=models.FloatField(default = 0.00, blank=False,
+	price=models.DecimalField(max_digits=9, decimal_places=2,
+								default = 0.00, blank=False,
 								help_text=("""Price per item"""),
                             	verbose_name=('Price'),
                             	validators=[ MinValueValidator(0)])
-	discount = models.FloatField(default = 0, blank=False,
+	discount = models.DecimalField(max_digits=9, decimal_places=2,
+								default = 0, blank=False,
 								help_text=("Discount offer"),
                             	verbose_name=('Discount'),
                             	validators=[MinValueValidator(0)])
@@ -48,14 +50,18 @@ class Product_Item_Images(models.Model):
 		on_delete=models.CASCADE, related_name='images')
 	image = models.ImageField(default='default-product.jpg', upload_to='Uploads')
 
-class Customer(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-	name = models.CharField(max_length=200, null=True)
-	email = models.CharField(max_length=200, null=True)
+class User(AbstractUser):
+	email = models.EmailField(unique=True)
+
+class Customer(User):
 	phone_number = models.CharField(max_length=10)
 
+	class Meta:
+		verbose_name = 'Customer'
+		verbose_name_plural = 'Customers'
+
 	def  __str__(self):
-		return self.name
+		return f'{self.first_name} {self.last_name}'
 
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, 
@@ -63,10 +69,10 @@ class Order(models.Model):
 		 blank=True, null=True)
 	date_orderd = models.DateTimeField(auto_now_add=True)
 	complete = models.BooleanField(default=False, null=True, blank=False)
-	transaction_id = models.CharField(max_length=200, null=True)
+	reciept_id = models.CharField(max_length=20, null=True)
 
 	def __str__(self):
-		return f'{self.customer.name}-{self.id}'
+		return f'{self.customer.first_name}-{self.id}-{self.reciept_id}'
 
 	@property
 	def get_cart_total(self):
@@ -78,7 +84,7 @@ class Order(models.Model):
 	def get_cart_items(self):
 		orderitems = self.orderitem_set.all()
 		total =sum([item.quantity for item in orderitems])
-		return total
+		return total	
 
 class OrderItem(models.Model):
 	product=models.ForeignKey(Product_Item, on_delete=models.SET_NULL, null=True)
@@ -95,15 +101,47 @@ class OrderItem(models.Model):
 		total=self.product.price * self.quantity
 		return total
 	
-
 class ShippingAddress(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 	address = models.CharField(max_length=200, null=False)
 	city = models.CharField(max_length=200, null=False)
 	state = models.CharField(max_length=200, null=False)
-	zipcode = models.CharField(max_length=200, null=False)
+	pincode = models.CharField(max_length=200, null=False)
 	date_added = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return self.customer.name
+		return self.customer.first_name
+
+
+class PaymentDetail(models.Model):
+	order = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
+	name = models.CharField(max_length=50)
+	contact_no = models.CharField(max_length=10)
+	email = models.EmailField()
+	address = models.TextField(null=False)
+	city = models.CharField(max_length=50, null=False)
+	state = models.CharField(max_length=30, null=False)
+	pincode = models.CharField(max_length=6, null=False)
+	date_added = models.DateTimeField(auto_now_add=True)
+	payondelivery = models.BooleanField(default=False)
+	status = models.CharField(max_length=20, default='None')
+	razpayorder_id = models.CharField(max_length=50, default='None')
+	paymentID = models.CharField(max_length=50, default='Unpaid')
+	canceled = models.BooleanField(default=False)
+
+	@property
+	def shippingDict(self):
+		self._shippingDict={}
+		self._shippingDict['Customer Name']=self.name
+		self._shippingDict['Email']=self.email
+		self._shippingDict['Contact No.']=self.contact_no
+		self._shippingDict['Amount']=float(self.order.get_cart_total)
+		self._shippingDict['Shipping address']=f'Address-{self.address}, City-{self.city}, State-{self.state}, Pincode-{self.pincode}'
+		return self._shippingDict
+	
+	def __str__(self):
+		return self.name
+
+
+

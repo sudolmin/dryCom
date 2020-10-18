@@ -26,5 +26,25 @@
 			</div>
 		</div>
 	</section>
+	<section id="latest">
+		<div class="container-fluid">
+	  		<h1 class="text-center mt-5 mb-3">Latest Products</h1>
+		  	<div class="row">
+		  		<hr><br>
+				{% for pdtObj, name, origin, imgurl in LatestProduct %}
+					<div class="col-md-3" style="margin-bottom: 30px">
+						<img class="thumbnail" src="{{ imgurl }}">
+						<div class="box-element product">
+							<h6><strong>{{name}}-{{pdtObj.weight}}</strong></h6>
+							<hr>
+							<button data-product={{pdtObj.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart" style='padding: 4px; font-size: 15px;' >Add to Cart</button>
+							<a class="btn btn-outline-success" style='padding: 4px; font-size: 15px;' href="#">View</a>
+							<p class="latestpdtprice"><strong><i id="cart-icon" class="fa fa-inr" aria-hidden="true"></i>{{pdtObj.price|floatformat:2}}</strong></p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
 </div>
 {% endblock %}

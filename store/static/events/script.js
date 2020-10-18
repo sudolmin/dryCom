@@ -3,8 +3,10 @@ function openNav() {
   document.getElementById("storeSidenav").style.width = "250px";
   document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
 }
+if (document.getElementById("main")!==null){
+	document.getElementById("main").addEventListener("click", closeNav);
+}
 
-document.getElementById("main").addEventListener("click", closeNav);
 
 function closeNav() {
   document.getElementById("storeSidenav").style.width = "0";
@@ -16,9 +18,7 @@ for(var i = 0; i < updateBtns.length; i++){
 	updateBtns[i].addEventListener('click', function(){
 		var productId = this.dataset.product
 		var action = this.dataset.action
-		console.log('productId:', productId, 'action:', action)
 
-		console.log("USER:", user)
 		if(user == 'AnonymousUser'){
 			console.log('Not Logged In')
 		}else{
@@ -28,7 +28,6 @@ for(var i = 0; i < updateBtns.length; i++){
 }
 
 function updateUserOrder(productId, action){
-	console.log('User is logged in, sending data...')
 
 	var url = '/updateItem/'
 
@@ -44,6 +43,25 @@ function updateUserOrder(productId, action){
 		return response.json()
 	})
 	.then((data) => {
-		console.log('data', data)
+		location.reload()
 	})
 }
+
+cartItems()
+
+function cartItems(){
+	var itemId = document.getElementById('cart-total')
+	var url = '/cart-api/'
+
+	fetch(url)
+	.then((resp) => resp.json())
+	.then(function(data){
+		
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].complete==false) {
+				itemId.innerHTML += String(data[i].get_cart_items)
+			}
+			
+		}
+	})
+} 

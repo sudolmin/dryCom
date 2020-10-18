@@ -31,15 +31,15 @@
 				</div>
 				{% for item, img in pdtList %}
 				<div class="text-center cart-row">
-					<div style="flex:1"><img class="row-image" src="{{img.image.url}}"></div>
+					<div style="flex:1"><img class="row-image" src="{{img}}"></div>
 					<div style="flex:2"><p>{{item}}</p></div>
 					<div style="flex:1"><p><strong><i id="cart-icon" class="fa fa-inr" aria-hidden="true"></i>{{item.product.price|floatformat:2}}</strong></p></div>
 					<div style="flex:1">
 						
 						<div class="quantity text-center">
-							<i class="fa fa-angle-double-up chg-quantity"></i>
+							<i data-product={{item.product.id}} data-action="add" class="fa fa-angle-double-up chg-quantity update-cart"></i>
 							<p class="quantity">{{item.quantity}}</p>
-							<i class="fa fa-angle-double-down chg-quantity"></i>
+							<i data-product={{item.product.id}} data-action="remove" class="fa fa-angle-double-down chg-quantity update-cart"></i>
 						</div>
 					</div>
 					<div style="flex:1"><p><i id="cart-icon" class="fa fa-inr" aria-hidden="true"></i>{{item.get_total|floatformat:2}}</strong></p></div>

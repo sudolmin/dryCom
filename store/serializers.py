@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Categories, Product, Product_Item, Product_Item_Images, Customer, Order, OrderItem, ShippingAddress
+from .models import *
 class PdtImgSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Product_Item_Images
@@ -24,3 +24,13 @@ class CategorySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Categories
 		fields = ['title', 'Products']
+
+class CartUpdateSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Order
+		fields = ['complete', 'reciept_id', 'get_cart_total', 'get_cart_items']
+
+# class PaymentSerializer(serializers.ModelSerializer):
+# 	class Meta:
+# 		model = PaymentDetail
+# 		fields = ['get_reciept_id','shippingDict','get_order_id']

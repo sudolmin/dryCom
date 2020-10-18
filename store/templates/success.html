@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block base %}
+	<div class="text-center">
+		<h1>order_id: {{order_id}}</h1>
+		<h4>name: {{payObj.name}}</h4>
+		<h4>contact_no: {{payObj.contact_no}}</h4>
+		<h4>email: {{payObj.email}}</h4>
+		<h4>address: {{payObj.address}}</h4>
+		<h4>city: {{payObj.city}}</h4>
+		<h4>state: {{payObj.state}}</h4>
+		<h4>pincode: {{payObj.pincode}}</h4>
+		<h4>date_added: {{payObj.date_added}}</h4>
+		<h4>payondelivery: {{payObj.payondelivery}}</h4>
+		<h4>status: {{payObj.status}}</h4>
+		<h4>razpayorder_id: {{payObj.razpayorder_id}}</h4>
+		<h4>paymentID: {{payObj.paymentID}}</h4>
+		<h4>canceled: {{payObj.canceled}}</h4>
+		<h3>No. of items: {{items}}</h3>
+	</div>
+{% endblock %}

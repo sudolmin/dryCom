@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block base %}
+<div class="text-center">
+	<form action="/payment/{{order_id}}/success/" method="POST"> <!-- // Replace this with your website's success callback URL -->
+		{% csrf_token %} 
+		<script    
+			src="https://checkout.razorpay.com/v1/checkout.js"    
+			data-key="rzp_test_9YfX33jkhilVYO" // Enter the Key ID generated from the Dashboard 
+			data-amount="{{amount}}"// Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise    
+			data-currency="INR"    
+			data-order_id="{{payObj.razpayorder_id}}"//This is a sample Order ID. Pass the `id` obtained in the response of the previous step.    
+			data-buttontext="Pay with Razorpay"    
+			data-name="Dry Corp"    
+			data-description="Test transaction"    
+			data-image="https://example.com/your_logo.jpg"    
+			data-prefill.name="{{payObj.name}}"    
+			data-prefill.email="{{payObj.email}}"    
+			data-prefill.contact="{{payObj.contact_no}}"
+			data-theme.color="#528FF0">
+		</script>
+		<input type="hidden" custom="Hidden Element" name="hidden">
+	</form>
+</div>
+{% endblock %}

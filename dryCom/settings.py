@@ -38,12 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',
-    'users',
+     'users.apps.UsersConfig',
     #third-party apps
     'taggit',
     "rest_framework",
     'crispy_forms',
     'nested_admin',
+    'razorpay',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTH_USER_MODEL = 'store.User'
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 

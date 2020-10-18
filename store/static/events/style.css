@@ -2,7 +2,9 @@ body{
 	background-color: #fcf7e9;
 	/*font-family: "Lato", sans-serif;*/
 	transition: background-color .5s;
-  }
+  overflow: scroll;
+  height: auto;
+}
 
 
 .top{
@@ -70,6 +72,12 @@ h1,h2,h3,h4,h5,h6{
 	display: inline-block; 
 	float: right; 
 	font-size: 2vw;
+}
+
+.latestpdtprice{
+  display: inline-block; 
+  float: right; 
+  font-size: 1vw;
 }
 
 #cart-icon{
@@ -182,7 +190,8 @@ h1,h2,h3,h4,h5,h6{
 
 footer.page-footer {
     bottom: 0;
-    color: #fff
+    color: #fff;
+    margin-top: 3em;
 }
 
 footer.page-footer .container-fluid {
@@ -199,8 +208,8 @@ footer.page-footer a {
     color: #fff
 }
 
-.cyan.darken-3 {
-    background-color: #00838f !important
+.footer-color{
+    background-color: #634d3b !important
 }
 
 

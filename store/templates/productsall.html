@@ -5,9 +5,9 @@
 <div id="main">
 	<div class="container">
 	  	<div class="row">
-			{% for pdtObj, name, origin, imgObj in pdtList %}
+			{% for pdtObj, name, origin, imgurl in pdtList %}
 				<div class="col-md-4" style="margin-bottom: 30px">
-					<img class="thumbnail" src="{{ imgObj.image.url }}">
+					<img class="thumbnail" src="{{ imgurl }}">
 					<div class="box-element product">
 						<h6><strong>{{name}}-{{pdtObj.weight}}</strong></h6>
 						<hr>

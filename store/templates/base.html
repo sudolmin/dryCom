@@ -10,6 +10,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'events/style.css' %}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+	<link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
 	<script type="text/javascript">
 		var user = "{{request.user}}"
 		function getToken(name) {
@@ -28,6 +32,35 @@
 	    return cookieValue;
 	}
 	const csrftoken = getToken('csrftoken');
+
+	function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+	
 	</script>
 </head>
 <body>
@@ -56,7 +89,7 @@
 		     	<a href="{% url 'Cart' %}">
 	     			<i id="cart-icon" class="fa fa-shopping-bag " style="margin-left: 15px;" aria-hidden="true"></i>
 		    	</a>
-		    	<p id="cart-total">0</p>
+		    	<p id="cart-total"></p>
 
 		    </div>
         </ul> 
@@ -83,7 +116,7 @@
 
 </body>
 <!-- Footer -->
-<footer class="page-footer font-small cyan darken-3">
+<footer class="page-footer font-small footer-color">
 
   <!-- Footer Elements -->
   <div class="container">
@@ -103,14 +136,6 @@
           <a class="tw-ic">
             <i class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
           </a>
-          <!-- Google +-->
-          <a class="gplus-ic">
-            <i class="fa fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
-          <!--Linkedin -->
-          <a class="li-ic">
-            <i class="fa fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
           <!--Instagram-->
           <a class="ins-ic">
             <i class="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
@@ -128,9 +153,7 @@
   <!-- Footer Elements -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-  </div>
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:</div>
   <!-- Copyright -->
 
 </footer>

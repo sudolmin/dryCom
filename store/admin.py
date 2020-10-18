@@ -1,5 +1,6 @@
 from django.contrib import admin
 from . import models as _
+from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 from django.db import models
 
@@ -23,9 +24,18 @@ class ProductAdmin(NestedModelAdmin):
 class OrderItemAdmin(admin.ModelAdmin):
 	list_display = ('product','order', 'quantity', 'date_added')
 
+class PaymentAdmin(admin.ModelAdmin):
+	search_fields  = ['order__reciept_id']
+	list_display = ('name', 'contact_no', 'email', 'razpayorder_id', 'paymentID')
+
+class OrderAdmin(admin.ModelAdmin):
+	list_display = ('customer', 'reciept_id', 'date_orderd', 'complete')
+
 admin.site.register(_.Categories)
 admin.site.register(_.Product, ProductAdmin)
-admin.site.register(_.Customer)
-admin.site.register(_.Order)
+admin.site.register(_.User, UserAdmin)
+admin.site.register(_.Customer, UserAdmin)
+admin.site.register(_.Order, OrderAdmin)
 admin.site.register(_.OrderItem, OrderItemAdmin)
 admin.site.register(_.ShippingAddress)
+admin.site.register(_.PaymentDetail, PaymentAdmin)
